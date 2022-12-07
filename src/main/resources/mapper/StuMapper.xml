@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ms.gradems.mapper.StuMapper">
+    <resultMap id="StuEntityMap" type="ms.gradems.entity.Stu">
+        <id column="stu_id" property="stuId"></id>
+        <result column="stu_num" property="stuNum"></result>
+        <result column="stu_pwd" property="stuPwd"></result>
+        <result column="stu_real_name" property="stuRealName"></result>
+        <result column="stu_major_id" property="stuMajorId"></result>
+    </resultMap>
+
+    <insert id="insertStu" useGeneratedKeys="true" keyProperty="stuId">
+        INSERT INTO stu (stu_num stu_pwd, stu_real_name, stu_major_id)
+        VALUES (#{stuNum}, #{stuPwd}, #{stuRealName}, #{stuMajorId})
+    </insert>
+
+    <select id="findByStuId" resultMap="StuEntityMap">
+        SELECT * FROM stu WHERE stu_id = #{stuId}
+    </select>
+
+    <delete id="deleteStuById">
+        delete from stu where stu_id=#{stuId}
+    </delete>
+
+    <update id="updateStu">
+        update stu
+        <set>
+            <if test="stuNum != null">stu_num=#{stuNum},</if>
+            <if test="stuPwd != null">stu_pwd=#{stuPwd},</if>
+            <if test="stuRealName != null">stu_real_name=#{stuRealName},</if>
+            <if test="stuMajorId != null">user_zone=#{stuMajorId}</if>
+        </set>
+        where stu_id=#{stuId}
+    </update>
+</mapper>
