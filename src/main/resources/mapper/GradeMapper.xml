@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ms.gradems.mapper.GradeMapper">
+    <resultMap id="GradeEntityMap" type="ms.gradems.entity.Grade">
+        <id column="sc_id" property="scId"></id>
+        <result column="sc_course_id" property="scCourseId"></result>
+        <result column="sc_stu_id" property="scStuId"></result>
+        <result column="sc_grade" property="scGrade"></result>
+    </resultMap>
+
+    <insert id="insertGrade" useGeneratedKeys="true" keyProperty="scId">
+        INSERT INTO grade (sc_course_id, sc_stu_id, sc_grade)
+        VALUES (#{scCourseId}, #{scStuId}, #{scGrade})
+    </insert>
+
+    <select id="findByScId" resultMap="GradeEntityMap">
+        SELECT * FROM grade WHERE sc_id = #{scId}
+    </select>
+
+    <select id="findByScCourseId" resultMap="GradeEntityMap">
+        SELECT * FROM grade WHERE sc_course_id = #{scCourseId}
+    </select>
+
+    <select id="findByScStuId" resultMap="GradeEntityMap">
+        SELECT * FROM grade WHERE sc_stu_id = #{scStuId}
+    </select>
+
+    <select id="findAllGrade" resultMap="GradeEntityMap">
+        SELECT * FROM grade
+    </select>
+
+    <delete id="deleteGradeById">
+        delete from grade where sc_id=#{scId}
+    </delete>
+
+    <update id="updateGrade">
+        update grade
+        <set>
+            <if test="scCourseId != null">sc_course_id=#{scCourseId},</if>
+            <if test="scStuId != null">sc_stu_id=#{scStuId},</if>
+            <if test="scGrade != null">sc_grade=#{scGrade}</if>
+        </set>
+        where sc_id=#{scId}
+    </update>
+</mapper>

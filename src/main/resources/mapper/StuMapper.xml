@@ -9,15 +9,28 @@
         <result column="stu_pwd" property="stuPwd"></result>
         <result column="stu_real_name" property="stuRealName"></result>
         <result column="stu_major_id" property="stuMajorId"></result>
+        <result column="stu_class_id" property="stuClassId"></result>
     </resultMap>
 
     <insert id="insertStu" useGeneratedKeys="true" keyProperty="stuId">
-        INSERT INTO stu (stu_num stu_pwd, stu_real_name, stu_major_id)
-        VALUES (#{stuNum}, #{stuPwd}, #{stuRealName}, #{stuMajorId})
+        INSERT INTO stu (stu_num, stu_pwd, stu_real_name, stu_major_id, stu_class_id)
+        VALUES (#{stuNum}, #{stuPwd}, #{stuRealName}, #{stuMajorId}, #{stuClassId})
     </insert>
 
     <select id="findByStuId" resultMap="StuEntityMap">
         SELECT * FROM stu WHERE stu_id = #{stuId}
+    </select>
+
+    <select id="findByStuNum" resultMap="StuEntityMap">
+        SELECT * FROM stu WHERE stu_num = #{stuNum}
+    </select>
+
+    <select id="findByClassId" resultMap="StuEntityMap">
+        SELECT * FROM stu WHERE stu_class_id = #{stuClassId}
+    </select>
+
+    <select id="findAllStu" resultMap="StuEntityMap">
+        SELECT * FROM stu
     </select>
 
     <delete id="deleteStuById">
@@ -30,7 +43,8 @@
             <if test="stuNum != null">stu_num=#{stuNum},</if>
             <if test="stuPwd != null">stu_pwd=#{stuPwd},</if>
             <if test="stuRealName != null">stu_real_name=#{stuRealName},</if>
-            <if test="stuMajorId != null">user_zone=#{stuMajorId}</if>
+            <if test="stuMajorId != null">stu_major_id=#{stuMajorId},</if>
+            <if test="stuClassId != null">stu_class_id=#{stuClassId}</if>
         </set>
         where stu_id=#{stuId}
     </update>

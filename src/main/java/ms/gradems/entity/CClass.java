@@ -3,9 +3,8 @@ package ms.gradems.entity;
 import lombok.Data;
 
 @Data
-public class cClass {
+public class CClass {
     Integer classId;
     String className;
-    Integer classStuId;
     Integer classTeacherId;
 }

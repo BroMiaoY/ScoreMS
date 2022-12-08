@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ms.gradems.mapper.MajorMapper">
+    <resultMap id="MajorEntityMap" type="ms.gradems.entity.Major">
+        <id column="major_id" property="majorId"></id>
+        <result column="major_Name" property="majorName"></result>
+    </resultMap>
+
+    <insert id="insertMajor" useGeneratedKeys="true" keyProperty="majorId">
+        INSERT INTO major (major_name)
+        VALUES (#{majorName})
+    </insert>
+
+    <select id="findByMajorId" resultMap="MajorEntityMap">
+        SELECT * FROM major WHERE major_id = #{majorId}
+    </select>
+
+    <select id="findByMajorName" resultMap="MajorEntityMap">
+        SELECT * FROM major WHERE major_Name = #{majorName}
+    </select>
+
+    <select id="findAllMajor" resultMap="MajorEntityMap">
+        SELECT * FROM major
+    </select>
+
+    <delete id="deleteMajorById">
+        delete from major where major_id=#{majorId}
+    </delete>
+
+    <update id="updateMajor">
+        update major
+        <set>
+            <if test="majorName != null">major_name=#{majorName}</if>
+        </set>
+        where major_id=#{majorId}
+    </update>
+</mapper>

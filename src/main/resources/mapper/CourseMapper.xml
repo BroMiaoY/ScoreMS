@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ms.gradems.mapper.CourseMapper">
+    <resultMap id="CourseEntityMap" type="ms.gradems.entity.Course">
+        <id column="course_id" property="courseId"></id>
+        <result column="course_teacher_id" property="courseTeacherId"></result>
+        <result column="course_Name" property="courseName"></result>
+    </resultMap>
+
+    <insert id="insertCourse" useGeneratedKeys="true" keyProperty="courseId">
+        INSERT INTO course (course_name, course_teacher_id)
+        VALUES (#{courseName}, #{courseTeacherId})
+    </insert>
+
+    <select id="findByCourseId" resultMap="CourseEntityMap">
+        SELECT * FROM course WHERE course_id = #{courseId}
+    </select>
+
+    <select id="findByCourseTeacherId" resultMap="CourseEntityMap">
+        SELECT * FROM course WHERE course_teacher_id = #{courseTeacherId}
+    </select>
+
+    <select id="findByCourseName" resultMap="CourseEntityMap">
+        SELECT * FROM course WHERE course_Name = #{courseName}
+    </select>
+
+    <select id="findAllCourse" resultMap="CourseEntityMap">
+        SELECT * FROM course
+    </select>
+
+    <delete id="deleteCourseById">
+        delete from course where course_id=#{courseId}
+    </delete>
+
+    <update id="updateCourse">
+        update course
+        <set>
+            <if test="courseName != null">course_name=#{courseName},</if>
+            <if test="courseTeacherId != null">course_teacher_id=#{courseTeacherId}</if>
+
+        </set>
+        where course_id=#{courseId}
+    </update>
+</mapper>

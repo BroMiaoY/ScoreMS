@@ -1,10 +1,10 @@
 #?????
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/scorems?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/scorems?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
     username: root
-    password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    password: 464822
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
   mapper-locations:
